@@ -47,4 +47,51 @@ class CardService {
       return null;
     }
   }
+
+  Future<Card> postCard(int id, String title, String content) async {
+    try {
+      final dio = Dio(BaseOptions(baseUrl: url));
+
+      var response = await dio
+          .post('/cards', data: {'id': id, 'title': title, 'content': content});
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Card.fromMap(response.data);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Card> updateCard(int id, String title, String content) async {
+    try {
+      final dio = Dio(BaseOptions(baseUrl: url));
+
+      var response = await dio
+          .put('/cards', data: {'id': id, 'data': title, 'content': content});
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Card.fromMap(response.data);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Card> deleteCard(int id) async {
+    try {
+      final dio = Dio(BaseOptions(baseUrl: url));
+
+      var response = await dio.delete('/cards/$id');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Card.fromMap(response.data);
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 }

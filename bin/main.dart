@@ -116,6 +116,30 @@ void main() async {
         var card = await cc.getCard(id);
         print(card.toMap());
         break;
+      case '3':
+        print('Digite o título do novo card:');
+        var title = stdin.readLineSync();
+        print('Digite o conteúdo do novo card:');
+        var content = stdin.readLineSync();
+        var card = await cc.postCard(title, content);
+        print(card.toMap());
+        break;
+
+      case '4':
+        print('Digite o código de card a ser atualizado:');
+        var id = int.tryParse(stdin.readLineSync());
+        print('Digite um novo título para o card nº $id:');
+        var title = stdin.readLineSync();
+        print('Digite um novo conteúdo para o card nº $id:');
+        var content = stdin.readLineSync();
+        await cc.updateCard(id, title, content);
+        break;
+
+      case '5':
+        print('Digite o código de card a ser excluído:');
+        await cc.deleteCard(int.tryParse(stdin.readLineSync()));
+        print('Card excluído com sucesso!');
+        break;
       default:
     }
     print('$opcao : não é 6! portanto... vamos em frente...teste novo');
